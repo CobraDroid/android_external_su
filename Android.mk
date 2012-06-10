@@ -1,8 +1,9 @@
 LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 
-LOCAL_MODULE := su
+LOCAL_MODULE := su-gc
 LOCAL_SRC_FILES := su.c db.c activity.cpp
+LOCAL_CFLAGS += -Wall -W
 
 SU_SHARED_LIBRARIES := liblog libsqlite
 ifeq ($(PLATFORM_SDK_VERSION),4)
