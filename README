@@ -1,19 +1,9 @@
-This is the su binary for Superuser on Android.
+This is an alternative implementation of the su binary for Superuser on Android.
+This implementation is compatible with the original su binary but differs in
+the following:
+o it doesn't use the am command for notifying Superuser
+o it sets LD_LIBRARY_PATH to the value copied from the parent process
+  on ICS or higher
+o it is linked dynamically
 
-Any app that requires root access must call this binary in order to be given root access.
-
-Branches for this repo support the following Android versions:
-
- - legacy
-   - cupcake
-   - donut
-
- - master
-   - eclair
-   - froyo
-   - gingerbread
-   - honeycomb*
-
-Branches marked with '-dev' are in work and should probably not be used. I will push to those channels as I develop new versions so they may be broken from time to time.
-
-* I have yet to personally test superuser on any honeycomb devices, therefore I cannot guarantee it's compatibility
+The implementation is compatible with Superuser 3.0.7 or less.
