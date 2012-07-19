@@ -38,15 +38,14 @@
 #define DEFAULT_SHELL "/system/bin/sh"
 
 #ifdef SU_LEGACY_BUILD
-#define VERSION_EXTRA	"l"
+#define VERSION_EXTRA	"-legacy"
 #else
 #define VERSION_EXTRA	""
 #endif
 
-#define VERSION "3.1" VERSION_EXTRA
-#define VERSION_CODE 16
+#define VERSION "3.2-gc" VERSION_EXTRA
+#define VERSION_CODE 18
 
-#define DATABASE_VERSION 6
 #define PROTO_VERSION 0
 
 struct su_initiator {
