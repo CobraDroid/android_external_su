@@ -17,8 +17,6 @@
 #include <stdlib.h>
 #include <sys/stat.h>
 #include <limits.h>
-#include <cutils/log.h>
-
 #include <sqlite3.h>
 
 #include "su.h"
