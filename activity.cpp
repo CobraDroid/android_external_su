@@ -16,7 +16,6 @@
 */
 
 #include <unistd.h>
-#include <android_runtime/ActivityManager.h>
 #ifdef SU_LEGACY_BUILD
 #include <utils/IBinder.h>
 #include <utils/IServiceManager.h>
