@@ -21,12 +21,12 @@
 
 #include "su.h"
 
-static sqlite3 *db_init(void)
+static sqlite3 *db_init(const char *name)
 {
     sqlite3 *db;
     int rc;
 
-    rc = sqlite3_open_v2(REQUESTOR_DATABASE_PATH, &db, SQLITE_OPEN_READONLY, NULL);
+    rc = sqlite3_open_v2(name, &db, SQLITE_OPEN_READONLY, NULL);
     if ( rc ) {
         LOGE("Couldn't open database: %s", sqlite3_errmsg(db));
         return NULL;
@@ -84,22 +84,30 @@ out:
 
 int database_check(const struct su_context *ctx)
 {
+	static const char *databases[] =
+		{ REQUESTOR_DATABASE_PATH, PERMISSIONS_DATABASE_PATH};
     sqlite3 *db;
+	size_t i;
     int dballow;
 
-    LOGE("sudb - Opening database");
-    db = db_init();
+	for (i = 0; i < ARRAY_SIZE(databases); i++) {
+	    LOGD("sudb - Opening database %s", databases[i]);
+	    db = db_init(databases[i]);
+		if (db)
+			break;
+		LOGD("sudb - Could not open database %s", databases[i]);
+	}
     if (!db) {
-        LOGE("sudb - Could not open database, prompt user");
-        // if the database could not be opened, we can assume we need to
-        // prompt the user
-        return DB_INTERACTIVE;
-    }
+        LOGD("sudb - Could not open database, prompt user");
+   	    // if the database could not be opened, we can assume we need to
+       	// prompt the user
+       	return DB_INTERACTIVE;
+   	}
 
-    LOGE("sudb - Database opened");
+    LOGD("sudb - Database opened");
     dballow = db_check(db, ctx);
     // Close the database, we're done with it. If it stays open, it will cause problems
     sqlite3_close(db);
-    LOGE("sudb - Database closed");
+    LOGD("sudb - Database closed");
     return dballow;
 }

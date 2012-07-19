@@ -27,8 +27,9 @@
 #define REQUESTOR_DATA_PATH "/data/data/" REQUESTOR
 #define REQUESTOR_CACHE_PATH "/dev/" REQUESTOR
 
-#define REQUESTOR_DATABASES_PATH REQUESTOR_DATA_PATH "/databases"
-#define REQUESTOR_DATABASE_PATH REQUESTOR_DATABASES_PATH "/permissions.sqlite"
+#define REQUESTOR_DATABASES_PATH REQUESTOR_DATA_PATH "/databases/"
+#define PERMISSIONS_DATABASE_PATH REQUESTOR_DATABASES_PATH "permissions.sqlite"
+#define REQUESTOR_DATABASE_PATH REQUESTOR_DATABASES_PATH "su.db"
 
 /* intent actions */
 #define ACTION_REQUEST REQUESTOR ".REQUEST"
@@ -89,6 +90,8 @@ static inline char *get_command(const struct su_request *to)
 {
 	return (to->command) ? to->command : to->shell;
 }
+
+#define ARRAY_SIZE(a)	(sizeof(a) / sizeof(a[0]))
 
 #include <cutils/log.h>
 #ifndef LOGE
