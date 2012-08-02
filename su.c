@@ -357,7 +357,7 @@ static void usage(int status)
     exit(status);
 }
 
-static void deny(const struct su_context *ctx)
+static __attribute__ ((noreturn)) void deny(const struct su_context *ctx)
 {
     char *cmd = get_command(&ctx->to);
 
@@ -367,7 +367,7 @@ static void deny(const struct su_context *ctx)
     exit(EXIT_FAILURE);
 }
 
-static void allow(const struct su_context *ctx)
+static __attribute__ ((noreturn)) void allow(const struct su_context *ctx)
 {
     char *arg0;
     int argc, err;
@@ -571,9 +571,9 @@ int main(int argc, char *argv[])
 
     dballow = database_check(&ctx);
     switch (dballow) {
-        case DB_DENY: deny(&ctx);
-        case DB_ALLOW: allow(&ctx);
         case DB_INTERACTIVE: break;
+        case DB_ALLOW: allow(&ctx);
+        case DB_DENY:
         default: deny(&ctx);
     }
     
@@ -625,7 +625,4 @@ int main(int argc, char *argv[])
         LOGE("unknown response from Superuser Requestor: %s", result);
         deny(&ctx);
     }
-
-    deny(&ctx);
-    return -1;
 }
