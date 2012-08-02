@@ -202,7 +202,11 @@ static void populate_environment(const struct su_context *ctx)
 
 static void socket_cleanup(void)
 {
-    unlink(socket_path);
+    if (socket_path[0]) {
+        if (unlink(socket_path))
+            PLOGE("unlink (%s)", socket_path);
+        socket_path[0] = 0;
+    }
 }
 
 static void cleanup(void)
