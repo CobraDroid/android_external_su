@@ -1,7 +1,7 @@
 LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 
-LOCAL_MODULE := su-gc
+LOCAL_MODULE := su
 LOCAL_SRC_FILES := su.c db.c activity.cpp
 LOCAL_CFLAGS += -Wall -W
 
@@ -11,7 +11,7 @@ ifeq ($(PLATFORM_SDK_VERSION),4)
 	SU_SHARED_LIBRARIES += libandroid_runtime
 else
 	SU_SHARED_LIBRARIES += libcutils libbinder libutils
-	LOCAL_MODULE_TAGS := debug,eng
+	LOCAL_MODULE_TAGS := debug
 endif
 
 LOCAL_C_INCLUDES += external/sqlite/dist
